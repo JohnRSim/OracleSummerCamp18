@@ -13,7 +13,7 @@ import AppWrapperWidget from '@/components/widgets/AppWrapperWidget.vue';
 
 /**
  * @description
- * 
+ *
  */
 export default {
 	name: 'Home-Page',
@@ -49,7 +49,7 @@ export default {
 	methods: {
 		test() {
 
-		}
+		},
 	},
 };
 </script>

@@ -30,9 +30,9 @@ const winURL = process.env.NODE_ENV === 'development'
  */
 function createWindow() {
 	//setup app ico
-	const iconPath = join(__static, 'android-chrome-192x192.png');
-	const iconTrayPath = join(__static, 'favicon-16x16.png');
-	const appIcon = nativeImage.createFromPath(iconPath);
+	//const iconPath = join(__static, 'android-chrome-192x192.png');
+	//const iconTrayPath = join(__static, 'favicon-16x16.png');
+	//const appIcon = nativeImage.createFromPath(iconPath);
 	//..To review
 	const iconName = process.platform === 'win32' ? 'windows-icon@2x.png' : 'iconTemplate.png';
 
@@ -42,10 +42,10 @@ function createWindow() {
 		show: false,
 		useContentSize: false,
 		width: 216,//510,
-		transparent: true,
+		//transparent: true,
 		frame: false,
 		resizable: false,
-		icon: appIcon,
+		//icon: appIcon,
 		maximizable: false,
 		webPreferences: {
 			backgroundThrottling: false,

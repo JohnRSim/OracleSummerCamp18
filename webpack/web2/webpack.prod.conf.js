@@ -97,23 +97,10 @@ const webpackConfig = merge(baseWebpackConfig, {
 
 			// Required - Routes to render.
 			routes: [
-				//'/',
+				'/',
 
 				//redirects
-				//'/upgradeApp',
-				'/login',
-				//'/enterSecurityPin',
-				'/register',
-				//'/dashboard',
-				//'/dashboard/account',
-				//'/wallet',
-				//'/wallet/transactions',
-				//'/wallet/export',
-				//'/wallet/import',
-				//'/mine',
-				//'/mine/earnings',
-				//'/settings',
-				//'/ico',
+				'/home',
 			],
 		}),
 		// generate dist index.html with correct asset hash for caching.
