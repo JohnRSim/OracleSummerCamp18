@@ -38,10 +38,10 @@ function createWindow() {
 
 	//Initial window options
 	mainWindow = new BrowserWindow({
-		height: 216,//656,
+		height: 600,
 		show: false,
 		useContentSize: false,
-		width: 216,//510,
+		width: 360,//510,
 		//transparent: true,
 		frame: false,
 		resizable: false,
@@ -67,10 +67,10 @@ function createWindow() {
 	mainWindow.loadURL(winURL);
 
 	//add tray icon support
-	const trayIcon = nativeImage.createFromPath(iconPath);
+	//const trayIcon = nativeImage.createFromPath(iconPath);
 	//trayIcon = trayIcon.resize({ width: 16, height: 16 });
 	//const nimage = nativeImage.createFromPath(trayIcon);
-	const tray = new Tray(iconPath);//appIcon iconPath
+	//const tray = new Tray(iconPath);//appIcon iconPath
 
 	//mainWindow.hide();
 	mainWindow.on('closed', () => {

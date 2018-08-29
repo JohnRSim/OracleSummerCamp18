@@ -88,6 +88,7 @@
 		"eventsource-polyfill": "^0.9.6",
 		"moment": "^2.22.1",
 		"promise-polyfill": "7.1.2",
+		"signature_pad": "^3.0.0-beta.3",
 		"vue": "^2.3.3",
 		"vue-clipboard2": "^0.1.0",
 		"vue-cordova": "^0.1.2",

@@ -1,5 +1,8 @@
 <template>
 	<div id="JSEA-wrapper">
+		<header class="draggable-area">
+			Oracle Summer Camp 2019	
+		</header>
 		<!-- @slot App Body Content -->
 		<slot/>
 	</div>
@@ -14,3 +17,13 @@ export default {
 	name: 'AppWrapperWidget',
 };
 </script>
+
+<style scoped>
+header {
+	background:#0E0E12;
+	height:40px;
+	line-height: 40px;
+	color:#fff;
+	text-align: center;
+}
+</style>

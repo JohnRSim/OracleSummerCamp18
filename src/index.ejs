@@ -17,6 +17,17 @@
 		require('module').globalPaths.push('<%= htmlWebpackPlugin.options.nodeModules.replace(/\\/g, '\\\\') %>')
 		</script>
 	<% } %>
+	<style>
+	._2TELtk5nDKlQudVSivRjpt ._2ChX4GFAl1-UBiWknYZyEQ {
+		top:50px !important;
+		height: 92% !important;
+	}
+	._3fQbteJd3oQu4il3LpMKkX.avcHn2VQJenBvoR5hilPG ._2ChX4GFAl1-UBiWknYZyEQ, .avcHn2VQJenBvoR5hilPG ._2ChX4GFAl1-UBiWknYZyEQ {
+		right: 10px !important;
+    	bottom: 10px !important;
+	}
+	</style>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 </head>
 <body>
 	
@@ -27,6 +38,73 @@
 	// If you want to get rid of the severe risk console message enable the line below. There's a severe benefit to us using a remote file for updates.
 	//process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = true;
 	if ((typeof(process) !== 'undefined') && (process.env.NODE_ENV !== 'development')) window.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
+</script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="/static/jquery-3.3.1.min.js"><\/script>')</script>
+
+<script>
+	let appId = "5b7c31fb5a3a6b002290d8f7";
+	window.localStorage.setItem("appId", appId);
+</script>
+<script src="https://scchatbot-chlnorte.gbcom-south-1.oraclecloud.com/smooch.js"></script>
+<script>
+	function destroyBot() {a
+    console.log("destroying previous bot");
+    var keys = Object.keys(localStorage);
+    for(var i = 0; i < keys.length; i++){
+        if (keys[i] !== 'appId') {
+            localStorage.removeItem(keys[i]);
+        }
+    }
+    destroyBot();
+}
+
+function initBot() {
+    Smooch.init({
+        appId: window.localStorage.getItem("appId"),
+        businessName: 'Summer, the Summer Camps Chatbot',
+		businessIconUrl: "https://i.imgur.com/Y3dle5v.png",
+        customColors: {
+            brandColor: "0AA1FA",
+            //conversationColor: "red",
+            actionColor: "0AA1FA"
+        },
+        customText: {
+            actionPostbackError: 'Ocorreu um erro a processar o seu pedido. Por favor, tente de novo.',
+            clickToRetry: 'Mensagem nÃ£o enviada. Clique para tentar novamente.',
+            conversationTimestampHeaderFormat: 'D MMMM YYYY, H:mm',
+            fetchHistory: 'Carregar mais',
+            fetchingHistory: 'A obter o histÃ³rico...',
+            headerText: 'How can I help you?',
+            inputPlaceholder: 'Write your message...',
+            introductionText: 'Ask something about Summer Camps!',
+            messageDelivered: 'Sent',
+            messageError: 'Ocorreu um erro a enviar a sua mensagem. Por favor, tente de novo.',
+            messageIndicatorTitlePlural: '({count}) new messages',
+            messageIndicatorTitleSingular: '({count}) new messages',
+            messageRelativeTimeDay: '{value}d ago',
+            messageRelativeTimeHour: '{value}h ago',
+            messageRelativeTimeJustNow: 'right now',
+            messageRelativeTimeMinute: '{value}m ago',
+            messageTimestampFormat: 'H:mm',
+            sendButtonText: 'Send'
+        },
+        locale: 'en',
+        menuItems: {
+            imageUpload: false,
+            fileUpload: true,
+            shareLocation: false
+        },
+        soundNotificationEnabled: false
+    }).then(function(){
+        console.log('Intialization completed...');
+        jQuery("#web-messenger-container").contents().find(".logo").hide();
+        console.log('Logo hided...');
+    });
+}
+
+initBot();
 </script>
 </body>
 </html>

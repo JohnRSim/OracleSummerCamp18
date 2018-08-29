@@ -9,7 +9,16 @@
 		for (var file of chunk.files) {
 			if (file.match(/\.(js|css)$/)) { %>
 		<link rel="<%= chunk.initial?'preload':'prefetch' %>" href="<%= htmlWebpackPlugin.files.publicPath + file %>" as="<%= file.match(/\.css$/)?'style':'script' %>"><% }}} %>
+<style>
+#web-messenger-container {
+	display: none;
+}
 
+#web-messenger-container.active {
+	display: block;
+}
+</style>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 </head>
 <body>
 
@@ -18,5 +27,71 @@
 <!-- Service Worker Code -->
 <%= htmlWebpackPlugin.options.serviceWorkerLoader %>
 
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="/static/jquery-3.3.1.min.js"><\/script>')</script>
+
+<script>
+	let appId = "5b7c31fb5a3a6b002290d8f7";
+	window.localStorage.setItem("appId", appId);
+</script>
+<script src="https://scchatbot-chlnorte.gbcom-south-1.oraclecloud.com/smooch.js"></script>
+<script>
+	function destroyBot() {a
+    console.log("destroying previous bot");
+    var keys = Object.keys(localStorage);
+    for(var i = 0; i < keys.length; i++){
+        if (keys[i] !== 'appId') {
+            localStorage.removeItem(keys[i]);
+        }
+    }
+    destroyBot();
+}
+
+function initBot() {
+    Smooch.init({
+        appId: window.localStorage.getItem("appId"),
+        businessName: 'Summer, the Summer Camps Chatbot',
+		businessIconUrl: "https://i.imgur.com/Y3dle5v.png",
+        customColors: {
+            brandColor: "0AA1FA",
+            //conversationColor: "red",
+            actionColor: "0AA1FA"
+        },
+        customText: {
+            actionPostbackError: 'Ocorreu um erro a processar o seu pedido. Por favor, tente de novo.',
+            clickToRetry: 'Mensagem nÃ£o enviada. Clique para tentar novamente.',
+            conversationTimestampHeaderFormat: 'D MMMM YYYY, H:mm',
+            fetchHistory: 'Carregar mais',
+            fetchingHistory: 'A obter o histÃ³rico...',
+            headerText: 'How can I help you?',
+            inputPlaceholder: 'Write your message...',
+            introductionText: 'Ask something about Summer Camps!',
+            messageDelivered: 'Sent',
+            messageError: 'Ocorreu um erro a enviar a sua mensagem. Por favor, tente de novo.',
+            messageIndicatorTitlePlural: '({count}) new messages',
+            messageIndicatorTitleSingular: '({count}) new messages',
+            messageRelativeTimeDay: '{value}d ago',
+            messageRelativeTimeHour: '{value}h ago',
+            messageRelativeTimeJustNow: 'right now',
+            messageRelativeTimeMinute: '{value}m ago',
+            messageTimestampFormat: 'H:mm',
+            sendButtonText: 'Send'
+        },
+        locale: 'en',
+        menuItems: {
+            imageUpload: false,
+            fileUpload: true,
+            shareLocation: false
+        },
+        soundNotificationEnabled: false
+    }).then(function(){
+        console.log('Intialization completed...');
+        jQuery("#web-messenger-container").contents().find(".logo").hide();
+        console.log('Logo hided...');
+    });
+}
+
+initBot();
+</script>
 </body>
 </html>

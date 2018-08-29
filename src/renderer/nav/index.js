@@ -3,6 +3,9 @@ import Router from 'vue-router';
 
 //home
 import home from '@/components/Home-Page';
+import login from '@/components/Login-Page';
+import register from '@/components/Registration-Page';
+import consent from '@/components/Consent-Page';
 
 //store
 import store from '../store';
@@ -10,12 +13,27 @@ import store from '../store';
 Vue.use(Router);
 
 const router = new Router({
-	mode: ((typeof (process) !== 'undefined') && (typeof (process.browser) === 'undefined'))?'hash':'history',
+	mode: 'hash',//((typeof (process) !== 'undefined') && (typeof (process.browser) === 'undefined'))?'hash':'history',
 	routes: [
 		{
 			path: '/',
 			name: 'home',
 			component: home,
+		},
+		{
+			path: '/register',
+			name: 'register',
+			component: register,
+		},
+		{
+			path: '/login',
+			name: 'login',
+			component: login,
+		},
+		{
+			path: '/consent',
+			name: 'consent',
+			component: consent,
 		},
 	],
 });
