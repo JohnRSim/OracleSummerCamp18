@@ -6,6 +6,10 @@ import home from '@/components/Home-Page';
 import login from '@/components/Login-Page';
 import register from '@/components/Registration-Page';
 import consent from '@/components/Consent-Page';
+import profile from '@/components/Profile-Page';
+import assets from '@/components/Assets-Page';
+import assets2 from '@/components/Assets2-Page';
+import logout from '@/components/Logout-Page';
 
 //store
 import store from '../store';
@@ -34,6 +38,31 @@ const router = new Router({
 			path: '/consent',
 			name: 'consent',
 			component: consent,
+		},
+		{
+			path: '/home',
+			name: 'home',
+			component: home,
+		},
+		{
+			path: '/profile',
+			name: 'profile',
+			component: profile,
+		},
+		{
+			path: '/assets',
+			name: 'assets',
+			component: assets,
+		},
+		{
+			path: '/assets2',
+			name: 'assets2',
+			component: assets2,
+		},
+		{
+			path: '/logout',
+			name: 'logout',
+			component: logout,
 		},
 	],
 });

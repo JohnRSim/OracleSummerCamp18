@@ -132,8 +132,8 @@
 					</ContentWidget>
 					
 					<div class="row" style="margin: 16px 30px">
-						<ButtonWidget type="button"
-							buttonTxt="Continue" style="margin-left:5px;" v-on:click.native="registerUser"/>
+						<ButtonWidget type="submit"
+							buttonTxt="Continue" style="margin-left:5px;"/>
 						<ButtonWidget type="button"
 							buttonTxt="Cancel" style="margin-left:15px;" v-on:click.native="loginRoute"/>
 					</div>
@@ -317,13 +317,67 @@ export default {
 				}
 			});
 
-			//store email for quick login
-			localStorage.setItem('email', self.form.email.val);
-
 			//if form pass check then submit captcha
 			if (checkRequiredFields) {
 				self.loading = true;
 				self.form.error.display = false;
+
+				localStorage.setItem('email', self.form.email.val);
+
+				const registerUser = {
+					emailAddress: self.form.email.val,
+					password: self.form.password.val,
+					firstName: self.form.firstName.val,
+					lastName: self.form.lastName.val,
+					company: self.form.company.val,
+					jobTitle: self.form.jobTitle.val,
+					country: self.form.country.val,
+				};
+				localStorage.setItem('name', self.form.firstName.val + ' ' + self.form.lastName.val);
+				localStorage.setItem('company', self.form.company.val);
+				localStorage.setItem('jobTitle', self.form.jobTitle.val);
+
+				fetch('https://AIC1-gse00015513.integration.ocp.oraclecloud.com:443/ic/api/integration/v1/flows/rest/T24E_REGISTERATTENDEE/1.0/attendee', {
+					method: 'POST',
+					body: JSON.stringify(registerUser), // data can be `string` or {object}!
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: 'Basic ' + window.btoa('john.dunbar:GlariNg@7Ling'),
+					},
+				}).then((res) => {
+					res.json();
+				}).then((response) => {
+					console.log('Success:', JSON.stringify(response));
+					const dataset = JSON.stringify(response);
+					if (dataset.resultCode === 'success') {
+						self.$router.push('/login');
+					} else {
+						console.error('Error:', error);
+					}
+				}).catch((error) => {
+					console.error('Error:', error);
+				});
+				/*axios.post(
+					'https://AIC1-gse00015513.integration.ocp.oraclecloud.com:443/ic/api/integration/v1/flows/rest/T24E_REGISTERATTENDEE/1.0/attendee',
+					registerUser,
+					{
+						withCredentials: true,
+						auth: {
+							username: 'john.dunbar',
+							password: 'GlariNg@7Ling',
+						},
+					},
+				).then((res) => {
+					console.log('resultcode', res);
+					self.loading = false;
+				}).catch((err) => {
+					console.log(err);
+
+					self.status.displayForm = true;
+					self.form.error.display = true;
+					self.loading = false;
+					self.form.error.msg = 'Failed to register';
+				});*/
 			} else {
 				self.form.error.display = true;
 				self.form.error.msg = 'Failed to submit form - please check all required fields';

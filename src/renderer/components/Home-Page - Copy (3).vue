@@ -1,11 +1,9 @@
 <template>
 	<AppWrapperWidget>
 		<ScrollWidget v-bind="{noNav:true}">
-			<NavWidget activeNav="home" />
+			<NavWidget />
 
-			<ContentWidget titleTxt="Home">
-				test
-			</ContentWidget>
+			test
 		</ScrollWidget>
 	</AppWrapperWidget>
 </template>
@@ -16,7 +14,6 @@ import axios from 'axios';
 import AppWrapperWidget from '@/components/widgets/AppWrapperWidget.vue';
 import ScrollWidget from '@/components/widgets/ScrollWidget.vue';
 import NavWidget from '@/components/widgets/NavWidget.vue';
-import ContentWidget from '@/components/widgets/ContentWidget.vue';
 
 
 /**
@@ -29,7 +26,6 @@ export default {
 		AppWrapperWidget,
 		ScrollWidget,
 		NavWidget,
-		ContentWidget,
 	},
 	data() {
 		return { };

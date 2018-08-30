@@ -191,7 +191,7 @@ dl.console.mini dd {
     min-width: 188px;
 }
 dl dt {
-	border-bottom:solid 1px #eee;
+	border-bottom:solid 1px #606060;
 	padding:0px 18px;
 	font-weight: bold;
 	font-size:0.8em;

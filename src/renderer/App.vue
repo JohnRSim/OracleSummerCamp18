@@ -3,12 +3,19 @@
 		<!-- App Page Content -->
 		<router-view></router-view>
 		<!-- xApp Page Content -->
+
+		<i class="fas fa-camera-retro" :class="{'active': showCamera}" v-on:click="openCamera"></i>
 	</div>
 </template>
 
 <script>
 export default {
 	name: 'Application-Page',
+	data() {
+		return {
+			showCamera: false,
+		};
+	},
 	/**
 	 * Created
 	 * on app init
@@ -19,6 +26,15 @@ export default {
 	created() {
 		const self = this;
 		console.log('[app init]');
+		if (typeof (cordova) !== 'undefined') {
+			//console.log(self.$cordova.cordova);
+			document.addEventListener('deviceready', () => {
+				self.onDeviceReady();
+				setTimeout(() => {
+					self.showCamera = true;
+				},1000);
+			}, false);
+		}
 	},
 	/**
 	 * Global App Functions
@@ -77,6 +93,85 @@ export default {
 			if (self.$store.getters.whichPlatform === 'desktop') {
 				self.$electron.remote.BrowserWindow.getFocusedWindow().minimize();
 			}
+		},
+		/**
+		 * Open Camera take picture send to upload func
+		 */
+		openCamera() {
+			const self = this;
+
+			navigator.camera.getPicture((fileLocation) => {
+				console.log(fileLocation);
+				self.uploadToFolder('F96FA3C7240E08E4ADEFA80760593BFA3869771E4673', fileLocation, 'download2.gif', 'This is a test file', '-234123412341234,-432342', 'fkm@klintra.fo');
+			}, (fail) => {
+				console.log(fail);
+			}, {
+				quality: 50,
+      			encodingType: Camera.EncodingType.JPEG,
+      			mediaType: Camera.MediaType.PICTURE,
+				saveToPhotoAlbum: true,
+				correctOrientation: true,
+				destinationType: navigator.camera.DestinationType.FILE_URI,
+				sourceType: navigator.camera.PictureSourceType.CAMERA,
+			});
+		},
+		uploadToFolder(folder, fileLocation, filename, desc, gps, email) {
+			const base = 'https://acecs-gse00015513.cec.ocp.oraclecloud.com/';
+			const user = 'john.dunbar';
+			const password = 'GlariNg@7Ling';
+
+			//const docsUrl = DoCSinstance.value + '/documents/api/1.1';
+			//const strFileId = (metadataFileId.value == '' ? '' : '/' + metadataFileId.value);
+			//const strFileName = metadataFilename.value;
+
+			console.log('fileloc', fileLocation);
+			/*
+			const filePackage = new FormData();
+			filePackage.append('jsonInputParameters','{"parentID": "self"}');//folder
+			filePackage.append('primaryFile', fileLocation, 'filenamex');
+
+			$.ajax({
+				type: 'POST',
+				url: `${base}/documents/api/1.1/files/data`,
+				enctype: 'multipart/form-data',
+				data: filePackage,
+				cache: false,
+				processData: false,
+				contentType: false,
+				crossDomain: true,
+				xhrFields: { withCredentials: true },
+				beforeSend: (xhr) => {
+					xhr.setRequestHeader('Authorization', 'Basic ' + btoa(user + ':' + password));
+				},
+				success: (data) => {
+					console.log('success');
+				},
+				error: (jqXHR, textStatus, errorThrown) => {
+					console.log('error', jqXHR, textStatus, errorThrown);
+				},
+			});*/
+			//setTimeout(() => {
+				const ft = new FileTransfer();
+				const options = new FileUploadOptions();
+				options.fileKey = 'primaryFile';
+				fileLocation = fileLocation.substr(0,fileLocation.lastIndexOf('?'));
+				var fileName = fileLocation.substr(fileLocation.lastIndexOf('/') + 1);
+				options.fileName = fileName;
+				options.httpMethod = 'POST';
+				options.mimeType = 'image/jpeg'
+				options.headers = {
+					'Authorization': 'Basic ' + btoa(user + ':' + password),
+				};
+				options.params = {
+					'jsonInputParameters': `{"parentID": "${folder}"}`,
+				};
+
+				ft.upload(fileLocation, encodeURI(`${base}/documents/api/1.1/files/data`), (a, b, c) => {
+					console.log('success', a, b, c);
+				},  (a, b, c) => {
+					console.log('fail',a, b, c);
+				}, options, true);
+			//}, 5000);
 		},
 	},
 };
@@ -166,5 +261,56 @@ select {
 
 .draggable-area {
     -webkit-app-region: drag;
+}
+.fa-camera-retro {
+	width: 58px;
+    height: 58px;
+    background-color: rgb(10, 161, 250);
+	position: fixed;
+    right: 86px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+    z-index: 6;
+    cursor: pointer;
+    transform-origin: bottom;
+    bottom: 0px;
+    opacity: 0;
+    transform: scale(1);
+	text-align: center;
+	line-height:58px;
+	color:#fff;
+	font-size:2em;
+	transition: opacity 0.2s, bottom 0.3s;
+}
+
+.fa-camera-retro.active {
+    bottom: 40px;
+	opacity: 1;
+}
+.avcHn2VQJenBvoR5hilPG._2TELtk5nDKlQudVSivRjpt .fa-camera-retro {
+	opacity: 0;
+}
+.profileImg {
+	position: absolute;
+	width:140px;
+	height:140px;
+	border-radius: 140px;
+	background:#fff;
+	margin:0px auto;
+	top:-120px;
+	left:50%;
+	margin-left:-70px;
+	background-image:url(./assets/avatar-08.jpg);
+	background-size: 140%;
+	background-position: center;
+	background-repeat: no-repeat;
+	box-shadow:inset 0px 0px 0px 10px #fff;
+}
+
+.profileImg.profile {
+	position: relative;
+	margin:0px auto;
+	left:0px;
+	top:0px;
 }
 </style>

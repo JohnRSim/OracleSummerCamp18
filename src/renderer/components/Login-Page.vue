@@ -221,6 +221,7 @@ export default {
 			if (checkRequiredFields) {
 				self.loading = true;
 				self.form.error.display = false;
+				//window.hex_md5(self.form.email);
 			} else {
 				self.form.error.display = true;
 				self.form.error.msg = 'Failed to submit form - please check all required fields';
@@ -236,20 +237,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-.profileImg {
-	position: absolute;
-	width:140px;
-	height:140px;
-	border-radius: 140px;
-	background:#fff;
-	margin:0px auto;
-	top:-120px;
-	left:50%;
-	margin-left:-70px;
-	background-image:url(../assets/avatar-08.jpg);
-	background-size: 140%;
-	background-position: center;
-	background-repeat: no-repeat;
-	box-shadow:inset 0px 0px 0px 10px #fff;
-}
 </style>

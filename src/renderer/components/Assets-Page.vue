@@ -1,10 +1,10 @@
 <template>
 	<AppWrapperWidget>
 		<ScrollWidget v-bind="{noNav:true}">
-			<NavWidget activeNav="home" />
+			<NavWidget activeNav="assets"  />
 
-			<ContentWidget titleTxt="Home">
-				test
+			<ContentWidget titleTxt="Training Assets" contentPadding="0">
+				<iframe width="100%" height="560" frameborder="0" src="https://acecs-gse00015513.cec.ocp.oraclecloud.com/documents/embed/folder/FBCB3DF81D3154AD1EF487F8DF79195D26CAB439B91E/_PaaS_Summer_Camp_2018"></iframe>
 			</ContentWidget>
 		</ScrollWidget>
 	</AppWrapperWidget>

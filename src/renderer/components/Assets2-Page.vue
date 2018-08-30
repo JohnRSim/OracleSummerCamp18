@@ -1,10 +1,10 @@
 <template>
 	<AppWrapperWidget>
 		<ScrollWidget v-bind="{noNav:true}">
-			<NavWidget activeNav="home" />
+			<NavWidget activeNav="assets2"  />
 
-			<ContentWidget titleTxt="Home">
-				test
+			<ContentWidget titleTxt="Training Assets" contentPadding="0">
+				<iframe width="100%" height="560" frameborder="0" src="https://aic1-gse00015513.integration.ocp.oraclecloud.com/ic/builder/rt/teamTwoFileApp/live/webApps/galleryapp/"></iframe>
 			</ContentWidget>
 		</ScrollWidget>
 	</AppWrapperWidget>

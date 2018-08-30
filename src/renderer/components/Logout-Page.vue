@@ -1,9 +1,9 @@
 <template>
 	<AppWrapperWidget>
 		<ScrollWidget v-bind="{noNav:true}">
-			<NavWidget activeNav="home" />
+			<NavWidget activeNav="logout"  />
 
-			<ContentWidget titleTxt="Home">
+			<ContentWidget titleTxt="Log out">
 				test
 			</ContentWidget>
 		</ScrollWidget>
