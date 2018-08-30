@@ -3,9 +3,10 @@
 		<ul>
 			<router-link v-bind:to="`/home`" tag="li" :class="{'active': activeNav === 'home'}"><i class="fas fa-home" title="home"></i></router-link>
 			<router-link v-bind:to="`/profile`" tag="li" :class="{'active': activeNav === 'profile'}"><i class="fas fa-user-circle" title="profile"></i></router-link>
-			<router-link v-bind:to="`/assets`" tag="li" :class="{'active': activeNav === 'assets'}"><i class="fas fa-file-invoice" title="assets"></i></router-link>
+			<router-link v-bind:to="`/assets`" tag="li" :class="{'active': activeNav === 'assets'}"><i class="fas fa-file-archive" title="assets"></i></router-link>
 			<router-link v-bind:to="`/assets2`" tag="li" :class="{'active': activeNav === 'assets2'}"><i class="fas fa-file-invoice" title="assets"></i></router-link>
-			<router-link v-bind:to="`/logout`" tag="li" :class="{'active': activeNav === 'logout'}"><i class="fas fa-sign-out-alt" title="logout"></i></router-link>
+			<router-link v-bind:to="`/globe`" tag="li" :class="{'active': activeNav === 'globe'}"><i class="fas fa-globe-americas" title="location"></i></router-link>
+			<router-link v-bind:to="`/login`" tag="li" :class="{'active': activeNav === 'logout'}"><i class="fas fa-sign-out-alt" title="logout"></i></router-link>
 		</ul>
 	</nav>
 </template>

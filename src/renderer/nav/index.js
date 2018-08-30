@@ -10,6 +10,7 @@ import profile from '@/components/Profile-Page';
 import assets from '@/components/Assets-Page';
 import assets2 from '@/components/Assets2-Page';
 import logout from '@/components/Logout-Page';
+import globe from '@/components/Globe-Page';
 
 //store
 import store from '../store';
@@ -21,8 +22,8 @@ const router = new Router({
 	routes: [
 		{
 			path: '/',
-			name: 'home',
-			component: home,
+			name: 'loginx',
+			component: login,
 		},
 		{
 			path: '/register',
@@ -63,6 +64,11 @@ const router = new Router({
 			path: '/logout',
 			name: 'logout',
 			component: logout,
+		},
+		{
+			path: '/globe',
+			name: 'globe',
+			component: globe,
 		},
 	],
 });

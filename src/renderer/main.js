@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuebar from 'vuebar';
 import axios from 'axios';
+import VueSwal from 'vue-swal';
 
 //App, Router and Vuex Store
 import App from './App';
@@ -20,6 +21,8 @@ Vue.config.productionTip = process.env.NODE_ENV === 'production';
 
 //virtual scrollbar
 Vue.use(Vuebar);
+
+Vue.use(VueSwal);
 
 //
 const AppData = Object.freeze({

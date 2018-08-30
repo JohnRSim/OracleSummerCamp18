@@ -6,7 +6,7 @@
 			<ContentWidget titleTxt="Profile">
 				<div class="row">
 					<div class="col" style="width:200px;">
-						<div class="profileImg profile" :style="{'backgroundImage': profileImg}"></div>
+						<div class="profileImg profile" :style="{'background-image': profileImg}"></div>
 						<ButtonWidget type="button"
 							buttonTxt="Update Photo" style="width:auto; margin:10px auto;" v-on:click.native="updatePhoto"/>
 					</div>

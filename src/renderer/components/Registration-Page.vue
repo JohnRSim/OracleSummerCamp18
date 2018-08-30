@@ -348,6 +348,7 @@ export default {
 					console.log('res', res);
 					return res.json();
 				}).then((response) => {
+					self.loading = false;
 					console.log('Success:', JSON.stringify(response));
 					const dataset = JSON.stringify(response);
 					console.log(dataset, response);
@@ -358,6 +359,7 @@ export default {
 						self.form.error.msg = response.resultMessage;
 					}
 				}).catch((error) => {
+					self.loading = false;
 					console.error('Error:', error);
 				});
 				/*axios.post(

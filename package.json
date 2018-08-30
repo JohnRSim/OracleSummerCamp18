@@ -1,8 +1,8 @@
 {
 	"name": "hackathon-platform",
-	"version": "0.5.6",
+	"version": "0.6.0",
 	"author": "JRSim_UIX",
-	"description": "Hackathon Platform Agnostic appP",
+	"description": "Hackathon Platform Agnostic app",
 	"license": "(ISC OR GPL-3.0)",
 	"main": "./dist/desktop/main.js",
 	"private": true,

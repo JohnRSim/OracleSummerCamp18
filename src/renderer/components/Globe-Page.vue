@@ -1,10 +1,14 @@
 <template>
 	<AppWrapperWidget>
 		<ScrollWidget v-bind="{noNav:true}">
-			<NavWidget activeNav="assets2"  />
+			<NavWidget activeNav="globe"  />
 
-			<ContentWidget titleTxt="Training Assets - VBCS" contentPadding="0">
-				<iframe width="100%" height="560" frameborder="0" src="https://aic1-gse00015513.integration.ocp.oraclecloud.com/ic/builder/rt/teamTwoFileApp/live/webApps/galleryapp/"></iframe>
+			<ContentWidget titleTxt="Tagged Event Photos From CEC" contentPadding="0">
+				<div style="background-image:url(static/photo.png); background-repeat: no-repeat; background-size:cover; width:100%; height:600px;background-position:-360px 0px;" />
+			</ContentWidget>
+
+			<ContentWidget titleTxt="Tagged Event Photos From CEC" contentPadding="0">
+				<iframe width="100%" height="600" src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;q=lagoas%20park+(My%20Business%20Name)&amp;ie=UTF8&amp;t=&amp;z=16&amp;iwloc=B&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"><a href="https://www.maps.ie/create-google-map/">Google map generator</a></iframe>
 			</ContentWidget>
 		</ScrollWidget>
 	</AppWrapperWidget>
@@ -24,7 +28,7 @@ import ContentWidget from '@/components/widgets/ContentWidget.vue';
  *
  */
 export default {
-	name: 'Home-Page',
+	name: 'Globe-Page',
 	components: {
 		AppWrapperWidget,
 		ScrollWidget,

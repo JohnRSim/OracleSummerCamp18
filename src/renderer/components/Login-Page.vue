@@ -239,7 +239,7 @@ export default {
 					self.loading = false;
 					self.form.error.msg = 'Failed to register';
 				});*/
-				
+
 				fetch('https://AIC1-gse00015513.integration.ocp.oraclecloud.com:443/ic/api/integration/v1/flows/rest/T24E_VERIFYATTENDEE/1.0/attendee', {
 					method: 'POST',
 					body: JSON.stringify(userLogin), // data can be `string` or {object}!
@@ -252,21 +252,25 @@ export default {
 					return res.json();
 				}).then((response) => {
 					console.log('Success:', JSON.stringify(response));
+					self.loading = false;
 					const dataset = JSON.stringify(response);
 					if (response.resultCode === 'Failure') {
 						self.form.error.display = true;
 						self.form.error.msg = 'Failed to submit form - Invalid User';
 					} else {
-						if (response.approvalStatus === 'NONE') {
+						console.log('response', response);
+						if (JSON.parse(response.payload).approvalStatus === 'NONE') {
 							self.$router.push('/consent');
 						} else {
 							self.$router.push('/home');
 						}
 					}
 				}).catch((error) => {
+					self.loading = false;
 					console.error('Error:', error);
 				});
 			} else {
+				self.loading = false;
 				self.form.error.display = true;
 				self.form.error.msg = 'Failed to submit form - please check all required fields';
 			}

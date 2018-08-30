@@ -321,20 +321,24 @@ export default {
 				//console.log('signaturePadVal', self.signaturePadVal);
 				// Returns signature image as data URL (see https://mdn.io/todataurl for the list of possible parameters)
 				self.signaturePadVal = self.signaturePad.toDataURL('image/jpeg', 1.0); // save image as PNG
-
+				const sigBase = self.signaturePad.toDataURL();//self.signaturePad.toDataURL('image/jpeg');
+				//console.log(sigBase);
+				console.log('base64', self.signaturePad.toDataURL());
 				const consent = {
-					processDefId: 'oracleinternalpcs~ConsentementApprobation!1.7~ConsentValidationForm',
+					processDefId: 'oracleinternalpcs~ConsentementApprobation!2~ConsentValidationForm',
 					serviceName: 'ConsentValidationForm.service',
-					operation: 'start',
+					operation: 'startEvent',
 					action: 'Submit',
 					params: {
-						email: self.form.email.val,
-						printName: self.form.printName.val,
-						signDate: self.form.signedDate.val,
-						signature: self.signaturePad.toDataURL('image/jpeg', 1.0),
+						startPayload: {
+							email: self.form.email.val,
+							printName: self.form.printName.val,
+							signDate: self.form.signedDate.val,
+							signature: sigBase.replace(/^data:image\/[a-z]+;base64,/, ''),
+						},
 					},
 				};
-				console.log(self.signaturePad.toDataURL('image/jpeg', 1.0));
+				//console.log(self.signaturePad.toDataURL('image/jpeg', 1.0));
 				fetch('https://aic1-gse00015513.integration.ocp.oraclecloud.com/bpm/api/4.0/processes', {
 					method: 'POST',
 					body: JSON.stringify(consent), // data can be `string` or {object}!
@@ -350,6 +354,10 @@ export default {
 					console.log(response);
 					const dataset = JSON.stringify(response);
 					localStorage.setItem('processid', response.processId);
+					
+					this.$swal('Oracle are reviewing your consent - you will receive an email when approved - You will then be allowed to login.');
+					self.$router.push('/login');
+					/*
 					fetch(`https://aic1-gse00015513.integration.ocp.oraclecloud.com/bpm/api/4.0/processes/${response.processId}`, {
 						method: 'GET',
 						//body: JSON.stringify(consent), // data can be `string` or {object}!
@@ -360,12 +368,16 @@ export default {
 						console.log('res', res);
 						return res.json();
 					}).then((response) => {
+						self.loading = false;
 						console.log('Success:', JSON.stringify(response));
 						console.log('final response on process', response);
+						this.$swal('Oracle are reviewing your consent - you will receive an email when approved - You will then be allowed to login.');
 						self.$router.push('/login');
 					}).catch((error) => {
+						self.loading = false;
 						console.error('Error:', error);
 					});
+					*/
 					/*if (response.resultCode === 'Failure') {
 						self.form.error.display = true;
 						self.form.error.msg = 'Failed to submit form - Invalid User';
