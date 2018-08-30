@@ -156,6 +156,8 @@ export default {
 			showPass: false,			//password input set eye icon
 			passDisplay: 'password',	//password input type ['password','text']
 			loading: false,				//communicating with the server.
+			signaturePad: null,
+			signaturePadVal: null,
 			//form modal
 			form: {
 				required: ['email', 'signedDate', 'printName'], //required fields
@@ -176,7 +178,6 @@ export default {
 					valid: true,			//valid value
 					flag: false,			//has value length
 				},
-				signaturePad: null,
 				//form error display
 				error: {
 					msg: '',		//form error messages
@@ -196,6 +197,7 @@ export default {
 	 */
 	created() {
 		const self = this;
+		self.form.email.val = localStorage.getItem('email');
 	},
 	/**
 	 * before leaving remove event listeners
@@ -214,8 +216,6 @@ export default {
               backgroundColor: 'rgba(255, 255, 255, 0)',
               penColor: 'rgb(0, 0, 0)',
         });
-		// Returns signature image as data URL (see https://mdn.io/todataurl for the list of possible parameters)
-		self.signaturePad.toDataURL(); // save image as PNG
 
 		///signaturePad.toDataURL("image/jpeg"); // save image as JPEG
 		///signaturePad.toDataURL("image/svg+xml"); // save image as SVG
@@ -316,6 +316,69 @@ export default {
 			if (checkRequiredFields) {
 				self.loading = true;
 				self.form.error.display = false;
+				//console.log('sig', self.signaturePad);
+				//console.log('base', );
+				//console.log('signaturePadVal', self.signaturePadVal);
+				// Returns signature image as data URL (see https://mdn.io/todataurl for the list of possible parameters)
+				self.signaturePadVal = self.signaturePad.toDataURL('image/jpeg', 1.0); // save image as PNG
+
+				const consent = {
+					processDefId: 'oracleinternalpcs~ConsentementApprobation!1.7~ConsentValidationForm',
+					serviceName: 'ConsentValidationForm.service',
+					operation: 'start',
+					action: 'Submit',
+					params: {
+						email: self.form.email.val,
+						printName: self.form.printName.val,
+						signDate: self.form.signedDate.val,
+						signature: self.signaturePad.toDataURL('image/jpeg', 1.0),
+					},
+				};
+				console.log(self.signaturePad.toDataURL('image/jpeg', 1.0));
+				fetch('https://aic1-gse00015513.integration.ocp.oraclecloud.com/bpm/api/4.0/processes', {
+					method: 'POST',
+					body: JSON.stringify(consent), // data can be `string` or {object}!
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: 'Basic ' + window.btoa('john.dunbar:GlariNg@7Ling'),
+					},
+				}).then((res) => {
+					console.log('res', res);
+					return res.json();
+				}).then((response) => {
+					console.log('Success:', JSON.stringify(response));
+					console.log(response);
+					const dataset = JSON.stringify(response);
+					localStorage.setItem('processid', response.processId);
+					fetch(`https://aic1-gse00015513.integration.ocp.oraclecloud.com/bpm/api/4.0/processes/${response.processId}`, {
+						method: 'GET',
+						//body: JSON.stringify(consent), // data can be `string` or {object}!
+						headers: {
+							Authorization: 'Basic ' + window.btoa('john.dunbar:GlariNg@7Ling'),
+						},
+					}).then((res) => {
+						console.log('res', res);
+						return res.json();
+					}).then((response) => {
+						console.log('Success:', JSON.stringify(response));
+						console.log('final response on process', response);
+						self.$router.push('/login');
+					}).catch((error) => {
+						console.error('Error:', error);
+					});
+					/*if (response.resultCode === 'Failure') {
+						self.form.error.display = true;
+						self.form.error.msg = 'Failed to submit form - Invalid User';
+					} else {
+						if (response.approvalStatus === 'NONE') {
+							self.$router.push('/consent');
+						} else {
+							self.$router.push('/home');
+						}
+					}*/
+				}).catch((error) => {
+					console.error('Error:', error);
+				});
 			} else {
 				self.form.error.display = true;
 				self.form.error.msg = 'Failed to submit form - please check all required fields';

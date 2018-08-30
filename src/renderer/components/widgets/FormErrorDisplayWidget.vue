@@ -52,6 +52,7 @@ export default {
 	border-radius: 6px;
 	font-size:0.8em;
 	position: relative;
+	padding:10px;
 }
 
 .errorMsg .fa-close {

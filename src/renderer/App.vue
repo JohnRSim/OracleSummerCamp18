@@ -155,15 +155,15 @@ export default {
 				const options = new FileUploadOptions();
 				options.fileKey = 'primaryFile';
 				fileLocation = fileLocation.substr(0,fileLocation.lastIndexOf('?'));
-				var fileName = fileLocation.substr(fileLocation.lastIndexOf('/') + 1);
+				const fileName = fileLocation.substr(fileLocation.lastIndexOf('/') + 1);
 				options.fileName = fileName;
 				options.httpMethod = 'POST';
-				options.mimeType = 'image/jpeg'
+				options.mimeType = 'image/jpeg';
 				options.headers = {
-					'Authorization': 'Basic ' + btoa(user + ':' + password),
+					Authorization: 'Basic ' + btoa(user + ':' + password),
 				};
 				options.params = {
-					'jsonInputParameters': `{"parentID": "${folder}"}`,
+					jsonInputParameters: `{"parentID": "${folder}"}`,
 				};
 
 				ft.upload(fileLocation, encodeURI(`${base}/documents/api/1.1/files/data`), (a, b, c) => {

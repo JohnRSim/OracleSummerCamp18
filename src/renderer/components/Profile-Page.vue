@@ -48,7 +48,7 @@ export default {
 		ButtonWidget,
 	},
 	data() {
-		return { 
+		return {
 			profileImg: 'test',
 			name: null,
 			company: null,
@@ -65,7 +65,7 @@ export default {
 		if (localStorage.getItem('profileimg')) {
 			self.profileImg = `url(data:image/jpeg;base64, ${localStorage.getItem('profileimg')})`;
 		}
-		
+
 		self.name = localStorage.getItem('name');
 		self.company = localStorage.getItem('company');
 		self.jobTitle = localStorage.getItem('jobTitle');
@@ -97,7 +97,6 @@ export default {
 				//self.uploadToFolder('FEE887BB229A8B06A327C8482F4FC706A008B7B3FD69', fileLocation, 'download2.gif', 'This is a test file', '-234123412341234,-432342', 'fkm@klintra.fo');
 				localStorage.setItem('profileimg', base64);
 				self.profileImg = `url(data:image/jpeg;base64, ${localStorage.getItem('profileimg')})`;
-
 			}, (fail) => {
 				console.log(fail);
 			}, {
@@ -150,15 +149,15 @@ export default {
 				const options = new FileUploadOptions();
 				options.fileKey = 'primaryFile';
 				fileLocation = fileLocation.substr(0,fileLocation.lastIndexOf('?'));
-				var fileName = fileLocation.substr(fileLocation.lastIndexOf('/') + 1);
+				const fileName = fileLocation.substr(fileLocation.lastIndexOf('/') + 1);
 				options.fileName = fileName;
 				options.httpMethod = 'POST';
-				options.mimeType = 'image/jpeg'
+				options.mimeType = 'image/jpeg';
 				options.headers = {
-					'Authorization': 'Basic ' + btoa(user + ':' + password),
+					Authorization: 'Basic ' + btoa(user + ':' + password),
 				};
 				options.params = {
-					'jsonInputParameters': `{"parentID": "${folder}"}`,
+					jsonInputParameters: `{"parentID": "${folder}"}`,
 				};
 
 				ft.upload(fileLocation, encodeURI(`${base}/documents/api/1.1/files/data`), (a, b, c) => {

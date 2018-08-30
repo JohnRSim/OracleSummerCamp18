@@ -10,7 +10,7 @@
 			<!-- xLogin error display -->
 
 			<!-- Login Form -->
-			<form id="SC-loginForm" @submit.prevent="onSubmit" :class="{hide:loading}" autocomplete="off">
+			<form v-if="!loading" id="SC-loginForm" @submit.prevent="onSubmit" :class="{hide:loading}" autocomplete="off">
 				<div v-if="status.displayForm" id="SC-loginFormWrapper">
 					<ContentWidget class="loginFormContainer" style="margin-top:200px; overflow:inherit;">
 						<!-- profile Img -->
@@ -222,6 +222,50 @@ export default {
 				self.loading = true;
 				self.form.error.display = false;
 				//window.hex_md5(self.form.email);
+				const userLogin = {
+					emailAddress: self.form.email.val,
+				};/*
+				axios.post(
+					'https://AIC1-gse00015513.integration.ocp.oraclecloud.com:443/ic/api/integration/v1/flows/rest/T24E_VERIFYATTENDEE/1.0/attendee',
+					userLogin,
+				).then((res) => {
+					console.log('resultcode', res);
+					self.loading = false;
+				}).catch((err) => {
+					console.log(err);
+
+					self.status.displayForm = true;
+					self.form.error.display = true;
+					self.loading = false;
+					self.form.error.msg = 'Failed to register';
+				});*/
+				
+				fetch('https://AIC1-gse00015513.integration.ocp.oraclecloud.com:443/ic/api/integration/v1/flows/rest/T24E_VERIFYATTENDEE/1.0/attendee', {
+					method: 'POST',
+					body: JSON.stringify(userLogin), // data can be `string` or {object}!
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: 'Basic ' + window.btoa('john.dunbar:GlariNg@7Ling'),
+					},
+				}).then((res) => {
+					console.log('res', res);
+					return res.json();
+				}).then((response) => {
+					console.log('Success:', JSON.stringify(response));
+					const dataset = JSON.stringify(response);
+					if (response.resultCode === 'Failure') {
+						self.form.error.display = true;
+						self.form.error.msg = 'Failed to submit form - Invalid User';
+					} else {
+						if (response.approvalStatus === 'NONE') {
+							self.$router.push('/consent');
+						} else {
+							self.$router.push('/home');
+						}
+					}
+				}).catch((error) => {
+					console.error('Error:', error);
+				});
 			} else {
 				self.form.error.display = true;
 				self.form.error.msg = 'Failed to submit form - please check all required fields';

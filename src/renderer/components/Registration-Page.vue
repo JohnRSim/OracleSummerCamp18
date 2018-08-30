@@ -10,7 +10,7 @@
 			<!-- xLogin error display -->
 
 			<!-- Login Form -->
-			<form id="SC-loginForm" @submit.prevent="onSubmit" :class="{hide:loading}" autocomplete="off">
+			<form v-if="!loading" id="SC-loginForm" @submit.prevent="onSubmit" :class="{hide:loading}" autocomplete="off">
 				<div v-if="status.displayForm" id="SC-loginFormWrapper">
 					<ContentWidget class="loginFormContainer" style="margin-top:200px; overflow:inherit;">
 						<!-- profile Img -->
@@ -345,14 +345,17 @@ export default {
 						Authorization: 'Basic ' + window.btoa('john.dunbar:GlariNg@7Ling'),
 					},
 				}).then((res) => {
-					res.json();
+					console.log('res', res);
+					return res.json();
 				}).then((response) => {
 					console.log('Success:', JSON.stringify(response));
 					const dataset = JSON.stringify(response);
-					if (dataset.resultCode === 'success') {
+					console.log(dataset, response);
+					if (response.resultCode === 'Success') {
 						self.$router.push('/login');
 					} else {
-						console.error('Error:', error);
+						self.form.error.display = true;
+						self.form.error.msg = response.resultMessage;
 					}
 				}).catch((error) => {
 					console.error('Error:', error);
