@@ -111,8 +111,8 @@ export default {
 		},
 		uploadToFolder(folder, fileLocation, filename, desc, gps, email) {
 			const base = 'https://acecs-gse00015513.cec.ocp.oraclecloud.com/';
-			const user = 'john.dunbar';
-			const password = 'GlariNg@7Ling';
+			const user = '';
+			const password = '';
 
 			//const docsUrl = DoCSinstance.value + '/documents/api/1.1';
 			//const strFileId = (metadataFileId.value == '' ? '' : '/' + metadataFileId.value);

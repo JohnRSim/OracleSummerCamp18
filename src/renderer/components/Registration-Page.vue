@@ -368,8 +368,8 @@ export default {
 					{
 						withCredentials: true,
 						auth: {
-							username: 'john.dunbar',
-							password: 'GlariNg@7Ling',
+							username: '',
+							password: '',
 						},
 					},
 				).then((res) => {
