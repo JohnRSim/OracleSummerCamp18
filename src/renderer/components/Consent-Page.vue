@@ -354,7 +354,6 @@ export default {
 					console.log(response);
 					const dataset = JSON.stringify(response);
 					localStorage.setItem('processid', response.processId);
-					
 					this.$swal('Oracle are reviewing your consent - you will receive an email when approved - You will then be allowed to login.');
 					self.$router.push('/login');
 					/*
